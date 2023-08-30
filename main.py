@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtWidgets import QWidget, QApplication, QLineEdit, QPushButton, QListWidget, QVBoxLayout
-
+from PySide6.QtCore import Qt
 
 class AppListaTarefa(QWidget):
     def __init__(self):
@@ -46,6 +46,19 @@ class AppListaTarefa(QWidget):
         layout.addWidget(self.lst_tarefa)
 
         self.setLayout(layout)
+
+    def adicionar_tarefa(self):
+        #Função para adicionar tarea à lista QList
+        tarefa = self.txt_tarefa.text()
+        if tarefa:
+            self.lst_tarefa.addItem(tarefa)
+            self.txt_tarefa.clear()
+
+    def concluir_tarefa(self):
+        #Função para marcar o checkbox como checado e desativar a edição de checkbox
+        item_selecionado = self.lst_tarefa.currentItem()
+        if item_selecionado:
+            item_selecionado.setFlags(item_selecionado.flags()| Qt.ItemIsUserCheckable)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
